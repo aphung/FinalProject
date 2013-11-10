@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="lib">
-      <UniqueIdentifier>{bf230807-a5ff-4465-95a0-fffecefb280b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gl">
       <UniqueIdentifier>{6ed7561f-3f67-4dad-adae-0ae4ed8d351d}</UniqueIdentifier>
     </Filter>
@@ -24,11 +21,6 @@
     <ClCompile Include="FinalProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\glut32.lib">
-      <Filter>lib</Filter>
-    </Library>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl\glut.h">

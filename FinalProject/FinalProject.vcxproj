@@ -41,11 +41,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\gl</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\gl;c:\glut</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\gl</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\gl;c:\glut</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -63,9 +63,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FinalProject.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\glut32.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl\glut.h" />

@@ -10,6 +10,10 @@ const int WIN_LOC_Y = 300;
 float angle = 0.0f;
 float lx = 0.0f, lz = -1.0f;
 float x = 0.0f, z = 5.0f;
+
+float deltaAngle = 0.0f;
+float deltaMove = 0;
+
 float red = 1.0f, green = 1.0f, blue = 1.0f;
 
 void drawSnowMan() {
@@ -59,7 +63,23 @@ void changeSize(int width, int height) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void computePos(float deltaMove) {
+	x += deltaMove * lx * 0.1f;
+	z += deltaMove * lz * 0.1f;
+}
+
+void computeDir(float deltaAngle) {
+	angle += deltaAngle;
+	lx = sin(angle);
+	lz = -cos(angle);
+}
+
 void renderScene(void) {
+
+	if (deltaMove) 
+		computePos(deltaMove);
+	if (deltaAngle)
+		computeDir(deltaAngle);
 
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -92,6 +112,38 @@ void renderScene(void) {
 	}
 
 	glutSwapBuffers();
+}
+
+void pressKey(int key, int xx, int yy) {
+
+	switch (key) {
+		case GLUT_KEY_LEFT: 
+			deltaAngle = -0.01f; 
+			break;
+		case GLUT_KEY_RIGHT: 
+			deltaAngle = 0.01f; 
+			break;
+		case GLUT_KEY_UP: 
+			deltaMove = 0.5f; 
+			break;
+		case GLUT_KEY_DOWN: 
+			deltaMove = -0.5f; 
+			break;
+	}
+}
+
+void releaseKey(int key, int x, int y) {
+
+	switch (key) {
+		case GLUT_KEY_LEFT:
+		case GLUT_KEY_RIGHT: 
+			deltaAngle = 0.0f;
+			break;
+		case GLUT_KEY_UP:
+		case GLUT_KEY_DOWN: 
+			deltaMove = 0;
+			break;
+	}
 }
 
 void processNormalKeys(unsigned char key, int x, int y) {
@@ -144,13 +196,17 @@ int main(int argc, char **argv) {
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(renderScene);
+	glutSpecialFunc(pressKey);
 
-	// Keyboard Calls
-	glutKeyboardFunc(processNormalKeys);
-	glutSpecialFunc(processSpecialKeys);
+	// here are the new entries
+	glutIgnoreKeyRepeat(1);
+	glutSpecialUpFunc(releaseKey);
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
+
+	glutIgnoreKeyRepeat(1);
+	glutSpecialUpFunc(releaseKey);
 
 	// enter GLUT event processing cycle
 	glutMainLoop();

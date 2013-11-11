@@ -7,6 +7,7 @@ const int WIN_LOC_X = 600;
 const int WIN_LOC_Y = 300;
 
 float angle = 0.0f;
+float red = 1.0f, green = 1.0f, blue = 1.0f;
 
 void changeSize(int width, int height) {
 	if (height == 0)
@@ -42,15 +43,49 @@ void renderScene(void) {
 
 	glRotatef(angle, 0.0f, 1.0f, 0.0f);
 
+	glColor3f(red, green, blue);
 	glBegin(GL_TRIANGLES);
-		glVertex3f(-2,-2,-5.0);
-		glVertex3f(2,0.0,-5.0);
-		glVertex3f(0.0,2,-5.0);
+		glVertex3f(-2.0, -2.0, 0.0);
+		glVertex3f(2.0, 0.0, 0.0);
+		glVertex3f(0.0, 2.0, 0.0);
 	glEnd();
 
 	angle += 0.1f;
 
     glutSwapBuffers();
+}
+
+void processNormalKeys(unsigned char key, int x, int y) {
+	// Escape
+	if (key == 27)
+		exit(0);
+	else if (key == 'r') {
+		int mod = glutGetModifiers();
+		if (mod == GLUT_ACTIVE_ALT)
+			red = 0.0;
+		else
+			red = 1.0;
+	}
+}
+
+void processSpecialKeys(int key, int x, int y) {
+	switch(key) {
+	case GLUT_KEY_F1:
+		red = 1.0;
+		green = 0.0;
+		blue = 0.0;
+		break;
+	case GLUT_KEY_F2:
+		red = 0.0;
+		green = 1.0;
+		blue = 0.0;
+		break;
+	case GLUT_KEY_F3:
+		red = 0.0;
+		green = 0.0;
+		blue = 1.0;
+		break;
+	}
 }
 
 int main(int argc, char **argv) {
@@ -64,9 +99,11 @@ int main(int argc, char **argv) {
 	// register callbacks
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
-
-	// Idle Function Registration
 	glutIdleFunc(renderScene);
+
+	// Keyboard Calls
+	glutKeyboardFunc(processNormalKeys);
+	glutSpecialFunc(processSpecialKeys);
 
 	// enter GLUT event processing cycle
 	glutMainLoop();

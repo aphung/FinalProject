@@ -13,6 +13,7 @@ float x = 0.0f, z = 5.0f;
 
 float deltaAngle = 0.0f;
 float deltaMove = 0;
+int xOrigin = -1;
 
 float red = 1.0f, green = 1.0f, blue = 1.0f;
 
@@ -114,6 +115,32 @@ void renderScene(void) {
 	glutSwapBuffers();
 }
 
+void mouseButton(int button, int state, int x, int y) {
+	// only start motion if the left button is pressed
+	if (button == GLUT_LEFT_BUTTON) {
+		// when the button is released
+		if (state == GLUT_UP) {
+			angle += deltaAngle;
+			xOrigin = -1;
+		}
+		else  {// state = GLUT_DOWN
+			xOrigin = x;
+		}
+	}
+}
+
+void mouseMove(int x, int y) {
+	// this will only be true when the left button is down
+	if (xOrigin >= 0) {
+		// update deltaAngle
+		deltaAngle = (x - xOrigin) * 0.001f;
+
+		// update camera's direction
+		lx = sin(angle + deltaAngle);
+		lz = -cos(angle + deltaAngle);
+	}
+}
+
 void pressKey(int key, int xx, int yy) {
 
 	switch (key) {
@@ -187,7 +214,7 @@ void processSpecialKeys(int key, int x, int y) {
 int main(int argc, char **argv) {
 	// init GLUT and create window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(WIN_LOC_X, WIN_LOC_Y);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Final Project - Adam Phung");
@@ -197,10 +224,11 @@ int main(int argc, char **argv) {
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(renderScene);
 	glutSpecialFunc(pressKey);
-
-	// here are the new entries
 	glutIgnoreKeyRepeat(1);
 	glutSpecialUpFunc(releaseKey);
+
+	glutMouseFunc(mouseButton);
+	glutMotionFunc(mouseMove);
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);

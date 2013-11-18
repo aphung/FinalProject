@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <glut.h>
 #include <math.h>
+#include <iostream>
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
@@ -14,8 +15,93 @@ float x = 0.0f, z = 5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 int xOrigin = -1;
+int frame=0,time,timebase=0;
 
-float red = 1.0f, green = 1.0f, blue = 1.0f;
+float red = 1.0f, green = 0.5f, blue = 0.5f;
+
+char str[50], loc[50];
+
+#define RED 1
+#define GREEN 2
+#define BLUE 3
+#define ORANGE 4
+
+void setOrthographicProjection() {
+
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+
+	// save previous matrix which contains the
+	//settings for the perspective projection
+	glPushMatrix();
+
+	// reset matrix
+	glLoadIdentity();
+
+	// set a 2D orthographic projection
+	gluOrtho2D(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+
+	// switch back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void restorePerspectiveProjection() {
+
+	glMatrixMode(GL_PROJECTION);
+	// restore previous projection matrix
+	glPopMatrix();
+
+	// get back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void renderBitmapString(float x, float y, void *font, const char *string) {
+  const char *c;
+  glRasterPos2f(x, y);
+  for (c = string; *c != '\0'; c++) {
+    glutBitmapCharacter(font, *c);
+  }
+}
+
+void processMenuEvents(int option) {
+
+	switch (option) {
+		case RED :
+			red = 1.0f;
+			green = 0.0f;
+			blue = 0.0f; break;
+		case GREEN :
+			red = 0.0f;
+			green = 1.0f;
+			blue = 0.0f; break;
+		case BLUE :
+			red = 0.0f;
+			green = 0.0f;
+			blue = 1.0f; break;
+		case ORANGE :
+			red = 1.0f;
+			green = 0.5f;
+			blue = 0.5f; break;
+	}
+}
+
+void createGLUTMenus() {
+	int menu;
+
+	// create the menu and
+	// tell glut that "processMenuEvents" will
+	// handle the events
+	menu = glutCreateMenu(processMenuEvents);
+
+	//add entries to our menu
+	glutAddMenuEntry("Red",RED);
+	glutAddMenuEntry("Blue",BLUE);
+	glutAddMenuEntry("Green",GREEN);
+	glutAddMenuEntry("Orange",ORANGE);
+
+	// attach the menu to the right button
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
 
 void drawSnowMan() {
 	glColor3f(1.0f, 1.0f, 1.0f);
@@ -38,7 +124,7 @@ void drawSnowMan() {
 	glPopMatrix();
 
 	// Draw Nose
-	glColor3f(1.0f, 0.5f , 0.5f);
+	glColor3f(red, green , blue);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
 	glutSolidCone(0.08f,0.5f,10,2);
 }
@@ -111,6 +197,28 @@ void renderScene(void) {
 			glPopMatrix();
 		}
 	}
+
+	
+	// FPS and Location Text
+	frame++;
+	time=glutGet(GLUT_ELAPSED_TIME);
+	if (time - timebase > 1000) {
+		sprintf(str,"FPS:%4.2f",
+			frame*1000.0/(time-timebase));
+		timebase = time;
+		frame = 0;
+	}
+
+	sprintf(loc, "Location: %4.2f, %4.2f", x, z);
+	glColor3f(0.0f,1.0f,1.0f);
+
+	glPushMatrix();
+	glLoadIdentity();
+	setOrthographicProjection();
+	renderBitmapString(420.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
+	renderBitmapString(30,35,GLUT_BITMAP_HELVETICA_18,str);
+	glPopMatrix();
+	restorePerspectiveProjection();
 
 	glutSwapBuffers();
 }
@@ -229,6 +337,8 @@ int main(int argc, char **argv) {
 
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);
+
+	createGLUTMenus();
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);

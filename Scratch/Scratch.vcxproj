@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BC5E1385-CFDB-4FC0-B336-1255EB4DCCF1}</ProjectGuid>
-    <RootNamespace>FinalProject</RootNamespace>
+    <ProjectGuid>{35B21953-A040-4144-A83D-BCA17F68EA8F}</ProjectGuid>
+    <RootNamespace>Scratch</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,11 +41,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\gl;c:\glut</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>c:\glut</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\gl;c:\glut</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>c:\glut</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -62,10 +62,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="gl\glut.h" />
+    <ClInclude Include="..\FinalProject\gl\glut.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FinalProject.cpp" />
+    <ClCompile Include="Scratch.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

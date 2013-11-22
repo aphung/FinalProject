@@ -14,16 +14,16 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="gl">
-      <UniqueIdentifier>{6ed7561f-3f67-4dad-adae-0ae4ed8d351d}</UniqueIdentifier>
+      <UniqueIdentifier>{37d66e9d-c405-40b4-aa65-a180f7800740}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gl\glut.h">
+    <ClInclude Include="..\FinalProject\gl\glut.h">
       <Filter>gl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FinalProject.cpp">
+    <ClCompile Include="Scratch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

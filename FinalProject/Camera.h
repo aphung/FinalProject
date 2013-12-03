@@ -7,7 +7,7 @@
 class Camera
 {
 public:
-	Camera() { Init(); }
+	Camera(void) { Init(); }
 	~Camera(void);
 
 	void Init();

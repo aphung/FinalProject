@@ -1,4 +1,9 @@
+/*
+	Attribution: Nghia Ho and his GLUT FPS control tutorial at: http://nghiaho.com/?p=1613
+*/
+
 #pragma once
+
 class Camera
 {
 public:

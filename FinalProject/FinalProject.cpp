@@ -3,6 +3,8 @@
 #include <glut.h>
 #include <math.h>
 
+#include "Controller.h"
+
 #define PI 3.14159265359
 
 const int WINDOW_WIDTH = 640;
@@ -12,6 +14,7 @@ const int WIN_LOC_Y = 300;
 
 using namespace std;
 
+// Callback method declarations
 void renderScene();
 void idle();
 void timer(int value);
@@ -20,6 +23,9 @@ void mouse(int button, int state, int x, int y);
 void mouseMotion(int x, int y);
 void keyboard(unsigned char key, int x, int y);
 void keyboardUp(unsigned char key, int x, int y);
+
+// Main variables
+Controller _controller;
 
 int main (int argc, char **argv)
 {
@@ -39,7 +45,7 @@ int main (int argc, char **argv)
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);
     glutPassiveMotionFunc(mouseMotion);
-    glutKeyboardFunc(keyboard);
+	glutKeyboardFunc(keyboard);
     glutKeyboardUpFunc(keyboardUp);
 	glutIgnoreKeyRepeat(1);
 
@@ -102,10 +108,10 @@ void mouseMotion(int x, int y)
 
 void keyboard(unsigned char key, int x, int y)
 {
-
+	_controller.keyboard(key, x, y);
 }
 
 void keyboardUp(unsigned char key, int x, int y)
 {
-
+	_controller.keyUp(key, x, y);
 }

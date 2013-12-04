@@ -3,7 +3,7 @@
 #include <glut.h>
 #include <math.h>
 
-#define PI 3.14159
+#define PI 3.14159265359
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
@@ -14,7 +14,12 @@ using namespace std;
 
 void renderScene();
 void idle();
-void changeSize(int width, int height);
+void timer(int value);
+void reshapeScene(int width, int height);
+void mouse(int button, int state, int x, int y);
+void mouseMotion(int x, int y);
+void keyboard(unsigned char key, int x, int y);
+void keyboardUp(unsigned char key, int x, int y);
 
 int main (int argc, char **argv)
 {
@@ -27,24 +32,22 @@ int main (int argc, char **argv)
 
 	// register callbacks
 	glutDisplayFunc(renderScene);
-	glutReshapeFunc(changeSize);
+	glutReshapeFunc(reshapeScene);
 	glutIdleFunc(idle);
-	//glutSpecialFunc(pressKey);
+
+	// register input callbacks
+	glutMouseFunc(mouse);
+	glutMotionFunc(mouseMotion);
+    glutPassiveMotionFunc(mouseMotion);
+    glutKeyboardFunc(keyboard);
+    glutKeyboardUpFunc(keyboardUp);
 	glutIgnoreKeyRepeat(1);
-	//glutSpecialUpFunc(releaseKey);
-
-	//glutMouseFunc(mouseButton);
-	//glutMotionFunc(mouseMove);
-
-	//createGLUTMenus();
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
 
-	glutIgnoreKeyRepeat(1);
-	//glutSpecialUpFunc(releaseKey);
-
 	// enter GLUT event processing cycle
+	glutTimerFunc(1, timer, 0);
 	glutMainLoop();
         
 	return 1;
@@ -60,7 +63,12 @@ void idle()
 
 }
 
-void changeSize(int width, int height) 
+void timer(int value)
+{
+
+}
+
+void reshapeScene(int width, int height) 
 {
 	if (height == 0)
 		height = 1;
@@ -80,4 +88,24 @@ void changeSize(int width, int height)
 
 	// Get back to the Modelview
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void mouse(int button, int state, int x, int y)
+{
+
+}
+
+void mouseMotion(int x, int y)
+{
+
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+
+}
+
+void keyboardUp(unsigned char key, int x, int y)
+{
+
 }

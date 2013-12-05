@@ -53,6 +53,13 @@ void Camera::SetPos(float x, float y, float z)
 	Refresh();
 }
 
+void Camera::GetPos(float &x, float &y, float &z)
+{
+	x = m_x;
+	y = m_y;
+	z = m_z;
+}
+
 void Camera::GetDirectionVector(float &x, float &y, float &z)
 {
 	x = m_lx;

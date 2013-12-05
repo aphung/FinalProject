@@ -3,9 +3,10 @@
 #include <glut.h>
 #include <math.h>
 
+#include "Camera.h"
 #include "Controller.h"
 
-#define PI 3.14159265359
+#define PI 3.14159265358979323846
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
@@ -24,7 +25,12 @@ void mouseMotion(int x, int y);
 void keyboard(unsigned char key, int x, int y);
 void keyboardUp(unsigned char key, int x, int y);
 
+// temp methods
+void display(void);
+void Grid(void);
+
 // Main variables
+Camera _camera;
 Controller _controller;
 
 int main (int argc, char **argv)
@@ -61,49 +67,86 @@ int main (int argc, char **argv)
 
 void renderScene() 
 {
-
+	display();
 }
 
 void idle()
 {
+	display();
+}
 
+// Temp display function
+void display(void)
+{
+    glClearColor(0.0, 0.0, 0.0, 1.0); //clear the screen to black
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
+    glLoadIdentity();
+
+	_camera.Refresh();
+
+    glColor3f(0, 1, 0);
+
+    glutWireTeapot(0.5);
+    Grid();
+
+	glBegin(GL_LINES);
+	glVertex3f(5.0, 1.0, 5.0);
+	glutWireTeapot(0.5);
+	glEnd();
+
+    glutSwapBuffers(); //swap the buffers
+}
+
+// Temp grid
+void Grid(void)
+{
+    glPushMatrix();
+    glColor3f(1,1,1);
+
+    for(int i=-50; i < 50; i++) {
+        glBegin(GL_LINES);
+        glVertex3f(i, 0, -50);
+        glVertex3f(i, 0, 50);
+        glEnd();
+    }
+
+    for(int i=-50; i < 50; i++) {
+        glBegin(GL_LINES);
+        glVertex3f(-50, 0, i);
+        glVertex3f(50, 0, i);
+        glEnd();
+    }
+
+    glPopMatrix();
 }
 
 void timer(int value)
 {
-
+	_controller.timerMove(value, _camera);
+    glutTimerFunc(1, timer, 0);
 }
 
 void reshapeScene(int width, int height) 
 {
-	if (height == 0)
-		height = 1;
-	float ratio = width * 1.0 / height;
+	_controller.setViewportWidth(width);
+	_controller.setViewportHeight(height);
 
-	// Use Projection Matrix
-	glMatrixMode(GL_PROJECTION);
+    glViewport (0, 0, (GLsizei)width, (GLsizei)height); //set the viewport to the current window specifications
+    glMatrixMode (GL_PROJECTION); //set the matrix to projection
 
-	// Reset Matrix
-	glLoadIdentity();
-
-	// Set viewport to the entire window
-	glViewport(0, 0, width, height);
-
-	// Set correct perspective
-	gluPerspective(45, ratio, 1, 100);
-
-	// Get back to the Modelview
-	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity ();
+    gluPerspective (60, (GLfloat)width / (GLfloat)height, 0.1 , 100.0); //set the perspective (angle of sight, width, height, ,depth)
+    glMatrixMode (GL_MODELVIEW); //set the matrix back to model
 }
 
 void mouse(int button, int state, int x, int y)
 {
-
+	_controller.mouse(button, state, x, y);
 }
 
 void mouseMotion(int x, int y)
 {
-
+	_controller.mouseMotion(x, y, _camera);
 }
 
 void keyboard(unsigned char key, int x, int y)

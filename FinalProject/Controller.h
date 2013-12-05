@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Camera.h"
+
 class Controller
 {
 public:
@@ -8,6 +10,14 @@ public:
 
 	void keyboard(unsigned char key, int x, int y);
 	void keyUp(unsigned char key, int x, int y);
+	void timerMove(int value, Camera &cam);
+	void mouse(int button, int state, int x, int y);
+	void mouseMotion(int x, int y, Camera &cam);
+
+	int getViewportWidth();
+	void setViewportWidth(int width);
+	int getViewportHeight();
+	void setViewportHeight(int height);
 
 private:
 	bool _key[256];
@@ -17,5 +27,7 @@ private:
 	int _viewportHeight;
 	bool _mouseLeftDown;
 	bool _mouseRightDown;
-};
 
+	float _rotationSpeed;
+	float _translationSpeed;
+};

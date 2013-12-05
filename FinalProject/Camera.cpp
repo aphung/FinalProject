@@ -3,8 +3,16 @@
 #include <glut.h>
 
 #include "Camera.h"
+#include "ap_pi.h"
 
-#define PI 3.14159265359
+Camera::Camera(void)
+{
+	Init();
+}
+Camera::~Camera(void)
+{
+
+}
 
 void Camera::Init()
 {
@@ -23,14 +31,17 @@ void Camera::Refresh()
 	m_ly = sin(m_pitch);
 	m_lz = sin(m_yaw) * cos(m_pitch);
 
-	m_strafe_lx = cos(m_yaw - PI);
-	m_strafe_lz = sin(m_yaw - PI);
+	m_strafe_lx = cos(m_yaw - M_PI_2);
+	m_strafe_lz = sin(m_yaw - M_PI_2);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(	m_x, m_y, m_z,
 				m_x + m_lx, m_y + m_ly, m_z + m_lz,
 				0.0, 1.0, 0.0);
+
+	//printf("Camera: %f %f %f Direction vector: %f %f %f\n", m_x, m_y, m_z, m_lx, m_ly, m_lz);
+	//printf("Camera: %f %f %f DirectionV: %f %f %f Strafe: %f %f\n", m_x, m_y, m_z, m_lx, m_ly, m_lz, m_strafe_lx, m_strafe_lz);
 }
 
 void Camera::SetPos(float x, float y, float z)
@@ -56,7 +67,7 @@ void Camera::Move(float increment)
 	float lz = sin(m_yaw) * cos(m_pitch);
 
 	m_x = m_x + increment * lx;
-	m_y = m_y + increment * ly;
+	//m_y = m_y + increment * ly; // Disable flying off the y axis
 	m_z = m_z + increment * lz;
 
 	Refresh();
@@ -86,7 +97,7 @@ void Camera::RotateYaw(float angle)
 
 void Camera::RotatePitch(float angle)
 {
-	const float limit = 89.0 * PI / 100.0;
+	const float limit = 89.0 * M_PI / 180.0;
 
 	m_pitch += angle;
 

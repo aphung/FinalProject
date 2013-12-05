@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <glut.h>
@@ -5,7 +6,7 @@
 
 #include "Camera.h"
 #include "Controller.h"
-#include "Hud.h"
+#include "Canvas.h"
 
 #define PI 3.14159265358979323846
 
@@ -33,7 +34,7 @@ void Grid(void);
 // Class variables
 Camera _camera;
 Controller _controller;
-Hud _hud;
+Canvas _canvas;
 
 int main (int argc, char **argv)
 {
@@ -77,66 +78,10 @@ void idle()
 	display();
 }
 
-// Temp display function
+// Draw
 void display(void)
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0); //clear the screen to black
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-    glLoadIdentity();
-
-	_camera.Refresh();
-
-    glColor3f(0, 1, 0);
-
-    glutWireTeapot(0.5);
-    Grid();
-
-	glBegin(GL_LINES);
-	glVertex3f(5.0, 1000.0, 5.0);
-	glutWireTeapot(0.5);
-	glEnd();
-
-	// location text
-	char loc[50];
-	float x, z, y;
-	_camera.GetPos(x, y, z);
-
-	sprintf(loc, "Location: %4.2f, %4.2f", x, z);
-	glColor3f(0.0f,1.0f,1.0f);
-
-	glPushMatrix();
-	glLoadIdentity();
-	_hud.setOrthographicProjection(WINDOW_WIDTH, WINDOW_HEIGHT);
-	_hud.renderBitmapString(420.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
-	//_hud.renderBitmapString(30,35,GLUT_BITMAP_HELVETICA_18,str);
-	glPopMatrix();
-	_hud.restorePerspectiveProjection();
-
-
-    glutSwapBuffers(); //swap the buffers
-}
-
-// Temp grid
-void Grid(void)
-{
-    glPushMatrix();
-    glColor3f(1,1,1);
-
-    for(int i=-50; i < 50; i++) {
-        glBegin(GL_LINES);
-        glVertex3f(i, 0, -50);
-        glVertex3f(i, 0, 50);
-        glEnd();
-    }
-
-    for(int i=-50; i < 50; i++) {
-        glBegin(GL_LINES);
-        glVertex3f(-50, 0, i);
-        glVertex3f(50, 0, i);
-        glEnd();
-    }
-
-    glPopMatrix();
+	_canvas.draw(_camera, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void timer(int value)
@@ -150,12 +95,12 @@ void reshapeScene(int width, int height)
 	_controller.setViewportWidth(width);
 	_controller.setViewportHeight(height);
 
-    glViewport (0, 0, (GLsizei)width, (GLsizei)height); //set the viewport to the current window specifications
-    glMatrixMode (GL_PROJECTION); //set the matrix to projection
+    glViewport(0, 0, (GLsizei)width, (GLsizei)height); //set the viewport to the current window specifications
+    glMatrixMode(GL_PROJECTION); //set the matrix to projection
 
-    glLoadIdentity ();
-    gluPerspective (60, (GLfloat)width / (GLfloat)height, 0.1 , 100.0); //set the perspective (angle of sight, width, height, ,depth)
-    glMatrixMode (GL_MODELVIEW); //set the matrix back to model
+    glLoadIdentity();
+    gluPerspective(60, (GLfloat)width / (GLfloat)height, 0.1 , 100.0); //set the perspective (angle of sight, width, height, ,depth)
+    glMatrixMode(GL_MODELVIEW); //set the matrix back to model
 }
 
 void mouse(int button, int state, int x, int y)

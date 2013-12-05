@@ -64,6 +64,7 @@
   <ItemGroup>
     <ClInclude Include="ap_pi.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="gl\glut.h" />
     <ClInclude Include="Hud.h" />
@@ -71,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="FinalProject.cpp" />
     <ClCompile Include="Hud.cpp" />

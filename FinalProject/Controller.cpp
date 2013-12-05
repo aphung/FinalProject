@@ -80,11 +80,11 @@ void Controller::timerMove(int value, Camera &cam)
         }
         if(_mouseLeftDown) 
 		{
-            cam.Fly(-_translationSpeed);
+            cam.Fly(_translationSpeed);
         }
         if(_mouseRightDown) 
 		{
-            cam.Fly(_translationSpeed);
+            cam.Fly(-_translationSpeed);
         }
     }
 }

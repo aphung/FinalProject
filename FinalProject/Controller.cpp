@@ -66,23 +66,23 @@ void Controller::timerMove(int value, Camera &cam)
 		{
             cam.Move(_translationSpeed);
         }
-        else if(_key['s'] || _key['S']) 
+        if(_key['s'] || _key['S']) 
 		{
             cam.Move(-_translationSpeed);
         }
-        else if(_key['a'] || _key['A']) 
+        if(_key['a'] || _key['A']) 
 		{
             cam.Strafe(_translationSpeed);
         }
-        else if(_key['d'] || _key['D']) 
+        if(_key['d'] || _key['D']) 
 		{
             cam.Strafe(-_translationSpeed);
         }
-        else if(_mouseLeftDown) 
+        if(_mouseLeftDown) 
 		{
             cam.Fly(-_translationSpeed);
         }
-        else if(_mouseRightDown) 
+        if(_mouseRightDown) 
 		{
             cam.Fly(_translationSpeed);
         }

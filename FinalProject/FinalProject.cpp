@@ -5,6 +5,7 @@
 
 #include "Camera.h"
 #include "Controller.h"
+#include "Hud.h"
 
 #define PI 3.14159265358979323846
 
@@ -29,9 +30,10 @@ void keyboardUp(unsigned char key, int x, int y);
 void display(void);
 void Grid(void);
 
-// Main variables
+// Class variables
 Camera _camera;
 Controller _controller;
+Hud _hud;
 
 int main (int argc, char **argv)
 {
@@ -90,9 +92,26 @@ void display(void)
     Grid();
 
 	glBegin(GL_LINES);
-	glVertex3f(5.0, 1.0, 5.0);
+	glVertex3f(5.0, 1000.0, 5.0);
 	glutWireTeapot(0.5);
 	glEnd();
+
+	// location text
+	char loc[50];
+	float x, z, y;
+	_camera.GetPos(x, y, z);
+
+	sprintf(loc, "Location: %4.2f, %4.2f", x, z);
+	glColor3f(0.0f,1.0f,1.0f);
+
+	glPushMatrix();
+	glLoadIdentity();
+	_hud.setOrthographicProjection(WINDOW_WIDTH, WINDOW_HEIGHT);
+	_hud.renderBitmapString(420.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
+	//_hud.renderBitmapString(30,35,GLUT_BITMAP_HELVETICA_18,str);
+	glPopMatrix();
+	_hud.restorePerspectiveProjection();
+
 
     glutSwapBuffers(); //swap the buffers
 }

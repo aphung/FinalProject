@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Controller.h"
 #include "Canvas.h"
+#include "Maze.h"
 
 #define PI 3.14159265358979323846
 
@@ -35,6 +36,7 @@ void Grid(void);
 Camera _camera;
 Controller _controller;
 Canvas _canvas;
+Maze _maze;
 
 int main (int argc, char **argv)
 {
@@ -60,6 +62,8 @@ int main (int argc, char **argv)
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
+
+	_maze.newMaze(100, 100);
 
 	// enter GLUT event processing cycle
 	glutTimerFunc(1, timer, 0);

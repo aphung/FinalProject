@@ -7,6 +7,8 @@ int** _maze;
 
 Maze::Maze(void)
 {
+	_sizeWidth = 100; // Default size
+	_sizeHeight = 100;
 }
 
 
@@ -20,20 +22,25 @@ void Maze::newMaze(int width, int height)
 
 	for(int i = 0; i < width; ++i)
 		_maze[i] = new int[height];
+
+	_sizeWidth = width;
+	_sizeHeight = height;
 }
 
 // TODO: rename this to yes/no statement
 bool Maze::travelMaze(float x, float y)
 {
-	// TODO: scope these to class
-	int width = 0;
-	int height = 0;
+	int startWidth = 0 - (_sizeWidth/2);
+	int startEnd = 0 - (_sizeHeight/2);
 
 	// Check boundries first
-	if (x < 0 || x > width)
+	if (x < startWidth || x > _sizeWidth/2)
 		return false;
-	if (y < 0 || y > height)
+	if (y < startEnd || y > _sizeHeight/2)
 		return false;
 
 	// Check maze array
+
+	// return
+	return true; // valid move
 }

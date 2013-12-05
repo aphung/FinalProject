@@ -20,6 +20,8 @@ void Camera::Init()
 	m_pitch = 0.0;
 
 	SetPos(0, 1, 0);
+
+	_maze.newMaze(100, 100);
 }
 
 // Refresh camera position
@@ -33,8 +35,6 @@ void Camera::Refresh()
 
 	m_strafe_lx = cos(m_yaw - M_PI_2);
 	m_strafe_lz = sin(m_yaw - M_PI_2);
-
-	// collision detection here?
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -71,6 +71,9 @@ void Camera::GetDirectionVector(float &x, float &y, float &z)
 
 void Camera::Move(float increment)
 {
+	// collision detection
+	if (!isValidMove()) return;
+
 	float lx = cos(m_yaw) * cos(m_pitch);
 	float ly = sin(m_pitch);
 	float lz = sin(m_yaw) * cos(m_pitch);
@@ -84,10 +87,33 @@ void Camera::Move(float increment)
 
 void Camera::Strafe(float increment)
 {
+	// collision detection
+	if (!isValidMove()) return;
+
 	m_x = m_x + increment * m_strafe_lx;
 	m_z = m_z + increment * m_strafe_lz;
 
 	Refresh();
+}
+
+bool Camera::isValidMove()
+{
+	// ugh! fix this crap
+	if (!_maze.travelMaze(m_x, m_z))
+	{
+		if (m_x > 0)
+			m_x -= 0.5;	
+		else
+			m_x += 0.5;
+
+		if (m_z > 0)
+			m_z -= 1.0;
+		else
+			m_z += 0.5;
+
+		return false;
+	}
+	return true;
 }
 
 void Camera::Fly(float increment)

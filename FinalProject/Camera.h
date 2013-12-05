@@ -3,6 +3,7 @@
 */
 
 #pragma once
+#include "Maze.h"
 
 class Camera
 {
@@ -30,5 +31,8 @@ private:
 	float m_lx, m_ly, m_lz; // Direction vector of where we are looking at
 	float m_yaw, m_pitch; // Various rotation angles
 	float m_strafe_lx, m_strafe_lz; // Always 90 deg to direction vector
+	Maze _maze;
+
+	bool isValidMove();
 };
 

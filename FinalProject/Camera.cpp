@@ -34,6 +34,8 @@ void Camera::Refresh()
 	m_strafe_lx = cos(m_yaw - M_PI_2);
 	m_strafe_lz = sin(m_yaw - M_PI_2);
 
+	// collision detection here?
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(	m_x, m_y, m_z,

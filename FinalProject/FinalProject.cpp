@@ -7,7 +7,6 @@
 #include "Camera.h"
 #include "Controller.h"
 #include "Canvas.h"
-#include "Maze.h"
 
 #define PI 3.14159265358979323846
 

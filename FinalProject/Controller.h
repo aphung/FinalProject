@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Camera.h"
+#include "Maze.h"
 
 class Controller
 {
@@ -10,9 +11,9 @@ public:
 
 	void keyboard(unsigned char key, int x, int y);
 	void keyUp(unsigned char key, int x, int y);
-	void timerMove(int value, Camera &cam);
+	void timerMove(int value, Camera &cam, Maze &maze);
 	void mouse(int button, int state, int x, int y);
-	void mouseMotion(int x, int y, Camera &cam);
+	void mouseMotion(int x, int y, Camera &cam, Maze &maze);
 
 	int getViewportWidth();
 	void setViewportWidth(int width);

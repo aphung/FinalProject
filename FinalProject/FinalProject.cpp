@@ -34,6 +34,7 @@ void display(void);
 Camera _camera;
 Controller _controller;
 Canvas _canvas;
+Maze _maze;
 
 int main (int argc, char **argv)
 {
@@ -60,6 +61,8 @@ int main (int argc, char **argv)
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
 
+	_maze.newMaze(100, 50);
+
 	// enter GLUT event processing cycle
 	glutTimerFunc(1, timer, 0);
 	glutMainLoop();
@@ -80,12 +83,12 @@ void idle()
 // Draw
 void display(void)
 {
-	_canvas.draw(_camera, WINDOW_WIDTH, WINDOW_HEIGHT);
+	_canvas.draw(_camera, _maze, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void timer(int value)
 {
-	_controller.timerMove(value, _camera);
+	_controller.timerMove(value, _camera, _maze);
     glutTimerFunc(1, timer, 0);
 }
 
@@ -109,7 +112,7 @@ void mouse(int button, int state, int x, int y)
 
 void mouseMotion(int x, int y)
 {
-	_controller.mouseMotion(x, y, _camera);
+	_controller.mouseMotion(x, y, _camera, _maze);
 }
 
 void keyboard(unsigned char key, int x, int y)

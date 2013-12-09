@@ -18,7 +18,7 @@ Controller::Controller(void)
 	_mouseRightDown = false;
 
 	_rotationSpeed = PI / 180 * 0.2;
-	_translationSpeed = 0.05;
+	_translationSpeed = 0.10;
 }
 
 
@@ -58,25 +58,25 @@ void Controller::keyUp(unsigned char key, int x, int y)
 	_key[key] = false;
 }
 
-void Controller::timerMove(int value, Camera &cam)
+void Controller::timerMove(int value, Camera &cam, Maze &maze)
 {
     if(_fpsMode) 
 	{
         if(_key['w'] || _key['W']) 
 		{
-            cam.Move(_translationSpeed);
+            cam.Move(_translationSpeed, maze);
         }
         if(_key['s'] || _key['S']) 
 		{
-            cam.Move(-_translationSpeed);
+            cam.Move(-_translationSpeed, maze);
         }
         if(_key['a'] || _key['A']) 
 		{
-            cam.Strafe(_translationSpeed);
+            cam.Strafe(_translationSpeed, maze);
         }
         if(_key['d'] || _key['D']) 
 		{
-            cam.Strafe(-_translationSpeed);
+            cam.Strafe(-_translationSpeed, maze);
         }
         if(_mouseLeftDown) 
 		{
@@ -112,7 +112,7 @@ void Controller::mouse(int button, int state, int x, int y)
     }
 }
 
-void Controller::mouseMotion(int x, int y, Camera &cam)
+void Controller::mouseMotion(int x, int y, Camera &cam, Maze &maze)
 {
     // This variable is hack to stop glutWarpPointer from triggering an event callback to Mouse(...)
     // This avoids it being called recursively and hanging up the event loop

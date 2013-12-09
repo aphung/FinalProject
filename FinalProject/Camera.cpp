@@ -20,8 +20,6 @@ void Camera::Init()
 	m_pitch = 0.0;
 
 	SetPos(10, 1, 10);
-
-	_maze.newMaze(100, 100);
 }
 
 // Refresh camera position
@@ -69,7 +67,7 @@ void Camera::GetDirectionVector(float &x, float &y, float &z)
 	z = m_lz;
 }
 
-void Camera::Move(float increment)
+void Camera::Move(float increment, Maze &maze)
 {
 	// Store current position
 	temp_x = m_x;
@@ -86,7 +84,7 @@ void Camera::Move(float increment)
 	m_z = m_z + increment * lz;
 
 	// Collision detection
-	if (!_maze.isValidMove(m_x, m_z))
+	if (!maze.isValidMove(m_x, m_z))
 	{
 		m_x = temp_x;
 		m_z = temp_z;
@@ -95,7 +93,7 @@ void Camera::Move(float increment)
 	Refresh();
 }
 
-void Camera::Strafe(float increment)
+void Camera::Strafe(float increment, Maze &maze)
 {
 	// Store current position
 	temp_x = m_x;
@@ -106,7 +104,7 @@ void Camera::Strafe(float increment)
 	m_z = m_z + increment * m_strafe_lz;
 
 	// Collision detection
-	if (!_maze.isValidMove(m_x, m_z))
+	if (!maze.isValidMove(m_x, m_z))
 	{
 		m_x = temp_x; // not valid return old values
 		m_z = temp_z;

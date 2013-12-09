@@ -11,6 +11,7 @@ public:
 
 	int getWidth();
 	int getHeight();
+	int **getMaze();
 
 private:
 	int _sizeWidth, _sizeHeight;

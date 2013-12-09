@@ -20,8 +20,8 @@ public:
 	void SetPitch(float angle);
 
 	// Navigation
-	void Move(float increment);
-	void Strafe (float increment);
+	void Move(float increment, Maze &maze);
+	void Strafe (float increment, Maze &maze);
 	void Fly(float increment);
 	void RotateYaw(float angle);
 	void RotatePitch(float angle);
@@ -32,7 +32,6 @@ private:
 	float m_lx, m_ly, m_lz; // Direction vector of where we are looking at
 	float m_yaw, m_pitch; // Various rotation angles
 	float m_strafe_lx, m_strafe_lz; // Always 90 deg to direction vector
-	Maze _maze;
 
 	bool isValidMove();
 };

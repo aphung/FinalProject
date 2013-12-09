@@ -44,17 +44,17 @@ void Canvas::Grid(void)
     glPushMatrix();
     glColor3f(1,1,1);
 
-    for(int i=-50; i < 50; i++) {
+    for(int i=0; i <= 100; i++) {
         glBegin(GL_LINES);
-        glVertex3f(i, 0, -50);
-        glVertex3f(i, 0, 50);
+        glVertex3f(i, 0, 0);
+        glVertex3f(i, 0, 100);
         glEnd();
     }
 
-    for(int i=-50; i < 50; i++) {
+    for(int i=0; i <= 100; i++) {
         glBegin(GL_LINES);
-        glVertex3f(-50, 0, i);
-        glVertex3f(50, 0, i);
+        glVertex3f(0, 0, i);
+        glVertex3f(100, 0, i);
         glEnd();
     }
 

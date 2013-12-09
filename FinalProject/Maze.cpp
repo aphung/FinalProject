@@ -27,20 +27,20 @@ void Maze::newMaze(int width, int height)
 	_sizeHeight = height;
 }
 
-// TODO: rename this to yes/no statement
-bool Maze::travelMaze(float x, float y)
+bool Maze::isValidMove(float x, float y)
 {
-	int startWidth = 0 - (_sizeWidth/2);
-	int startEnd = 0 - (_sizeHeight/2);
-
-	// Check boundries first
-	if (x < startWidth || x > _sizeWidth/2)
+	// Check boundries
+	if (x < 0 || x > _sizeWidth)
 		return false;
-	if (y < startEnd || y > _sizeHeight/2)
+
+	if (y < 0 || y > _sizeHeight)
 		return false;
 
 	// Check maze array
 
-	// return
-	return true; // valid move
+	// Valid move
+	return true;
 }
+
+int Maze::getWidth() { return _sizeWidth; }
+int Maze::getHeight() { return _getHeight; }

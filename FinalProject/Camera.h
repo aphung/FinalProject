@@ -28,6 +28,7 @@ public:
 
 private:
 	float m_x, m_y, m_z; // Position
+	float temp_x, temp_y, temp_z; // Temp position for collision detection
 	float m_lx, m_ly, m_lz; // Direction vector of where we are looking at
 	float m_yaw, m_pitch; // Various rotation angles
 	float m_strafe_lx, m_strafe_lz; // Always 90 deg to direction vector

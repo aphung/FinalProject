@@ -19,7 +19,7 @@ void Camera::Init()
 	m_yaw = 0.0;
 	m_pitch = 0.0;
 
-	SetPos(0, 1, 0);
+	SetPos(10, 1, 10);
 
 	_maze.newMaze(100, 100);
 }
@@ -71,9 +71,12 @@ void Camera::GetDirectionVector(float &x, float &y, float &z)
 
 void Camera::Move(float increment)
 {
-	// collision detection
-	if (!isValidMove()) return;
+	// Store current position
+	temp_x = m_x;
+	temp_y = m_y;
+	temp_z = m_z;
 
+	// Calculate new position
 	float lx = cos(m_yaw) * cos(m_pitch);
 	float ly = sin(m_pitch);
 	float lz = sin(m_yaw) * cos(m_pitch);
@@ -82,38 +85,34 @@ void Camera::Move(float increment)
 	//m_y = m_y + increment * ly; // Disable flying off the y axis
 	m_z = m_z + increment * lz;
 
+	// Collision detection
+	if (!_maze.isValidMove(m_x, m_z))
+	{
+		m_x = temp_x;
+		m_z = temp_z;
+	}
+
 	Refresh();
 }
 
 void Camera::Strafe(float increment)
 {
-	// collision detection
-	if (!isValidMove()) return;
+	// Store current position
+	temp_x = m_x;
+	temp_z = m_z;
 
+	// Calculate new position
 	m_x = m_x + increment * m_strafe_lx;
 	m_z = m_z + increment * m_strafe_lz;
 
-	Refresh();
-}
-
-bool Camera::isValidMove()
-{
-	// ugh! fix this crap
-	if (!_maze.travelMaze(m_x, m_z))
+	// Collision detection
+	if (!_maze.isValidMove(m_x, m_z))
 	{
-		if (m_x > 0)
-			m_x -= 0.5;	
-		else
-			m_x += 0.5;
-
-		if (m_z > 0)
-			m_z -= 1.0;
-		else
-			m_z += 0.5;
-
-		return false;
+		m_x = temp_x; // not valid return old values
+		m_z = temp_z;
 	}
-	return true;
+
+	Refresh();
 }
 
 void Camera::Fly(float increment)

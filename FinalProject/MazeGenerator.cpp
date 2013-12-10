@@ -1,9 +1,11 @@
 #include <cstdlib>
 #include "MazeGenerator.h"
+#include "MazePointStack.h"
 
 
 int **_maze;
 bool **_visited;
+MazePointStack stack;
 
 void MazeGenerator::generateNewMaze(int width, int height)
 {
@@ -29,12 +31,33 @@ void MazeGenerator::generateNewMaze(int width, int height)
 	_visited[0][0] = true;
 	_current = _startPoint;
 
-	// Choose side
-	MazePoint next = choosePath(_startPoint);
+	pathForward(_startPoint);
+}
 
-	// Carve path
-	carvePath(_current, next);
-	_current = next;
+MazePoint MazeGenerator::pathForward(MazePoint current)
+{
+	MazePoint next = choosePath(current);
+
+	if (next.getX() != -1)
+	{
+		stack.push(current);
+		carvePath(current, next);
+		current = next;
+		return pathForward(current);
+	}
+	else if (!stack.isEmpty())
+	{
+		MazePoint prev;
+		prev = stack.pop();
+		current = prev;
+		return pathForward(current);
+	}
+	else
+	{
+		MazePoint end;
+		end.setPoint(0, 0);
+		return end;
+	}
 }
 
 void MazeGenerator::carvePath(MazePoint from, MazePoint to)
@@ -61,21 +84,30 @@ MazePoint MazeGenerator::choosePath(MazePoint point)
 	int counter = 0;
 
 	// West
-	if (point.getX() - 2 >= 0 && _maze[point.getX() - 2][point.getY()] == 0)
+	if (point.getX() - 2 >= 0 && _visited[point.getX() - 2][point.getY()] == false)
 		validPoint[counter++].setPoint(point.getX() - 2, point.getY());
 	
 	// East
-	if (point.getX() + 2 < _width && _maze[point.getX() + 2][point.getY()] == 0)
+	if (point.getX() + 2 < _width && _visited[point.getX() + 2][point.getY()] == false)
 		validPoint[counter++].setPoint(point.getX() + 2, point.getY());
 
 	// North
-	if (point.getY() - 2 >= 0 && _maze[point.getX()][point.getY() - 2] == 0)
+	if (point.getY() - 2 >= 0 && _visited[point.getX()][point.getY() - 2] == false)
 		validPoint[counter++].setPoint(point.getX(), point.getY() - 2);
 
 	// South
-	if (point.getY() + 2 < _height && _maze[point.getX()][point.getY() + 2] == 0)
+	if (point.getY() + 2 < _height && _visited[point.getX()][point.getY() + 2] == false)
 		validPoint[counter++].setPoint(point.getX(), point.getY() + 2);
 
+	// No valid paths
+	if (counter == 0)
+	{
+		MazePoint n;
+		n.setPoint(-1, -1);
+		return n;
+	}
+
+	// Fill in rest?
 	while (counter < 4)
 		validPoint[counter++].setPoint(-1, -1);
 
@@ -85,5 +117,9 @@ MazePoint MazeGenerator::choosePath(MazePoint point)
 		num = rand() % 4;
 	} while(validPoint[num].getX() != -1);
 
-	return validPoint[num];
+	// mark as visited
+	MazePoint selected = validPoint[num];
+	_visited[selected.getX()][selected.getY()] = true;
+
+	return selected;
 }

@@ -16,5 +16,6 @@ private:
 	
 	MazePoint MazeGenerator::choosePath(MazePoint point);
 	void MazeGenerator::carvePath(MazePoint from, MazePoint to);
+	MazePoint MazeGenerator::pathForward(MazePoint p);
 };
 

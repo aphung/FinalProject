@@ -2,8 +2,9 @@
 class MazePoint
 {
 public:
-	MazePoint(int x, int y);
+	MazePoint(void);
 	~MazePoint(void);
+	void setPoint(int x, int y);
 
 	int getX() { return _x; };
 	void setX(int x) { _x = x; };

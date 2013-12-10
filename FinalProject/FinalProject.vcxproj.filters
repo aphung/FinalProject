@@ -16,6 +16,9 @@
     <Filter Include="gl">
       <UniqueIdentifier>{6ed7561f-3f67-4dad-adae-0ae4ed8d351d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Maze Generator">
+      <UniqueIdentifier>{28570d26-b296-412f-aa90-dca0f26ed4ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl\glut.h">
@@ -39,6 +42,12 @@
     <ClInclude Include="Canvas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MazeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MazePoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProject.cpp">
@@ -58,6 +67,12 @@
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MazeGenerator.cpp">
+      <Filter>Source Files\Maze Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="MazePoint.cpp">
+      <Filter>Source Files\Maze Generator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

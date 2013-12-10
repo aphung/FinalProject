@@ -69,6 +69,8 @@
     <ClInclude Include="gl\glut.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeGenerator.h" />
+    <ClInclude Include="MazePoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -77,6 +79,8 @@
     <ClCompile Include="FinalProject.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeGenerator.cpp" />
+    <ClCompile Include="MazePoint.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

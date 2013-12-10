@@ -1,13 +1,12 @@
 #include "MazePoint.h"
 
+MazePoint::MazePoint()
+{
 
-MazePoint::MazePoint(int x, int y)
+}
+
+void MazePoint::setPoint(int x, int y)
 {
 	_x = x;
 	_y = y;
-}
-
-
-MazePoint::~MazePoint(void)
-{
 }

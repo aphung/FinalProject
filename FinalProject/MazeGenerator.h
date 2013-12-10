@@ -12,6 +12,9 @@ public:
 private:
 	MazePoint _startPoint;
 	MazePoint _current;
-	void test();
+	int _width, _height;
+	
+	MazePoint MazeGenerator::choosePath(MazePoint point);
+	void MazeGenerator::carvePath(MazePoint from, MazePoint to);
 };
 

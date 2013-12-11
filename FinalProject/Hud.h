@@ -15,5 +15,6 @@ private:
 	void renderBitmapString(float x, float y, void *font, const char *string);
 	void drawLocation(float x, float y, float z);
 	void drawCrosshair(float x, float y, int size);
+	void drawLookAt(float x, float y, float z);
 };
 

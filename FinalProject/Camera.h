@@ -18,6 +18,7 @@ public:
 	void GetDirectionVector(float &x, float &y, float &z);
 	void SetYaw(float angle);
 	void SetPitch(float angle);
+	void GetLookAt(float &x, float &y, float &z);
 
 	// Navigation
 	void Move(float increment, Maze &maze);

@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <glut.h>
+#include <string.h>
 
 #include "Hud.h"
+
+//using namespace std;
 
 Hud::Hud(void)
 {
@@ -16,14 +19,18 @@ Hud::~Hud(void)
 void Hud::drawHud(Camera &cam, int width, int height)
 {
 	float x, z, y;
-	cam.GetPos(x, y, z);
 
 	glPushMatrix();
 	glLoadIdentity();
 	setOrthographicProjection(width, height);
 
 	drawCrosshair(width/2, height/2, 10);
+
+	cam.GetPos(x, y, z);
 	drawLocation(x, y, z);
+
+	cam.GetDirectionVector(x, y, z);
+	drawLookAt(x, y, z);
 
 	glPopMatrix();
 	restorePerspectiveProjection();
@@ -31,20 +38,12 @@ void Hud::drawHud(Camera &cam, int width, int height)
 
 void Hud::setOrthographicProjection(int width, int height) 
 {
-    // switch to projection mode
     glMatrixMode(GL_PROJECTION);
-
-    // save previous matrix which contains the
-    //settings for the perspective projection
     glPushMatrix();
-
-    // reset matrix
     glLoadIdentity();
 
-    // set a 2D orthographic projection
     gluOrtho2D(0, width, height, 0);
 
-    // switch back to modelview mode
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -88,4 +87,15 @@ void Hud::drawCrosshair(float x, float y, int size)
     glVertex2f(x, y - size);
     glVertex2f(x, y + size);
     glEnd();
+}
+
+void Hud::drawLookAt(float x, float y, float z)
+{
+	char loc[50];
+	sprintf(loc, "%4.2f, %4.2f, %4.2f", x, y, z);
+	glColor3f(0.0f,1.0f,1.0f);
+	renderBitmapString(10.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
+
+
+	//if ((x > 0.45 && x <= 1) && (z >= 0 && z <= 0.89))
 }

@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <time.h>
+
 #include "MazeGenerator.h"
 #include "MazePointStack.h"
 
@@ -6,7 +8,7 @@ MazePointStack stack;
 
 MazeGenerator::MazeGenerator(void)
 {
-
+	srand(time(NULL));
 }
 
 MazeGenerator::~MazeGenerator(void)
@@ -14,10 +16,15 @@ MazeGenerator::~MazeGenerator(void)
 
 }
 
+int** MazeGenerator::getMaze() { return _maze; }
+
 void MazeGenerator::generateNewMaze(int width, int height)
 {
 	_width = width;
 	_height = height;
+
+	_maze = new int*[width];
+	_visited = new bool*[width];
 
 	for (int i = 0; i < width; ++i)
 	{
@@ -82,7 +89,11 @@ void MazeGenerator::carvePath(MazePoint from, MazePoint to)
 	else if (dy == 2)
 		dy = 1;
 
-	_maze[from.getX() + dx][from.getY() + dy] = 0;
+	int midX = from.getX() + dx;
+	int midY = from.getY() + dy;
+
+	_maze[midX][midY] = 0;
+	_visited[midX][midY] = true;
 }
 
 MazePoint MazeGenerator::choosePath(MazePoint point)
@@ -118,14 +129,18 @@ MazePoint MazeGenerator::choosePath(MazePoint point)
 	while (counter < 4)
 		validPoint[counter++].setPoint(-1, -1);
 
-	int num;
+	int num, test;
+	MazePoint selected;
+
 	do
 	{
 		num = rand() % 4;
-	} while(validPoint[num].getX() != -1);
+		selected = validPoint[num];
+		test = selected.getX();
+	} while (validPoint[num].getX() == -1);
 
 	// mark as visited
-	MazePoint selected = validPoint[num];
+	_maze[selected.getX()][selected.getY()] = 0;
 	_visited[selected.getX()][selected.getY()] = true;
 
 	return selected;

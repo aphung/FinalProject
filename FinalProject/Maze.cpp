@@ -18,20 +18,11 @@ Maze::~Maze(void)
 
 void Maze::newMaze(int width, int height)
 {
-	_maze = new int*[width];
-
-	for(int i = 0; i < width; ++i)
-		_maze[i] = new int[height];
-
-	for(int i = 0; i < width; i++)
-		for(int j = 0; j < height; j++)
-			_maze[i][j] = 0;
+	_mazeGen.generateNewMaze(width, height);
+	_maze = _mazeGen.getMaze();
 
 	_sizeWidth = width;
 	_sizeHeight = height;
-
-	_maze[20][20] = 2; // test location
-	_maze[20][19] = 1;
 }
 
 bool Maze::isValidMove(float x, float y)

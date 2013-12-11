@@ -8,13 +8,14 @@ public:
 	MazeGenerator(void);
 	~MazeGenerator(void);
 	void generateNewMaze(int width, int height);
+	int** getMaze();
 
 private:
 	MazePoint _startPoint;
 	MazePoint _current;
 	int _width, _height;
-	int **_maze;
-	bool **_visited;
+	int** _maze;
+	bool** _visited;
 	
 	MazePoint MazeGenerator::choosePath(MazePoint point);
 	void MazeGenerator::carvePath(MazePoint from, MazePoint to);

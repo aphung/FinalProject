@@ -12,6 +12,7 @@ public:
 
 private:
 	void drawGrid(Maze &maze);
+	void drawPerimeter(int width, int height);
 	void drawCube(int x, int z, int h);
 	void drawSquare(int x, int z, int h);
 	Hud _hud;

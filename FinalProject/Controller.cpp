@@ -18,7 +18,7 @@ Controller::Controller(void)
 	_mouseRightDown = false;
 
 	_rotationSpeed = PI / 180 * 0.2;
-	_translationSpeed = 0.10;
+	_translationSpeed = 0.05;
 }
 
 

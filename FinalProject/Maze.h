@@ -1,4 +1,5 @@
 #pragma once
+#include "MazeGenerator.h"
 
 class Maze
 {
@@ -15,6 +16,7 @@ public:
 
 private:
 	int _sizeWidth, _sizeHeight;
+	MazeGenerator _mazeGen;
 
 	bool isWithinBoundry(float x, float y);
 };

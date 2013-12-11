@@ -45,6 +45,22 @@ int main (int argc, char **argv)
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Final Project - Adam Phung");
 
+	// Lighting
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
+
+	GLfloat lightpos[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat light[] = {0.5, 0.5, 0.0 }; // Light Color
+	GLfloat cyan[] = {0.f, .8f, .8f, 1.f};
+
+	glShadeModel (GL_SMOOTH);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+	glEnable(GL_COLOR_MATERIAL); // color material
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
+
 	// register callbacks
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(reshapeScene);
@@ -61,7 +77,8 @@ int main (int argc, char **argv)
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
 
-	_maze.newMaze(30, 31);
+	// New Maze
+	_maze.newMaze(25, 25);
 
 	// enter GLUT event processing cycle
 	glutTimerFunc(1, timer, 0);

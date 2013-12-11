@@ -23,13 +23,11 @@ void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
 
     glColor3f(0, 1, 0);
 
-    glutWireTeapot(0.5);
+	// Draw Maze and Floor
     drawGrid(maze);
 
-	glBegin(GL_LINES);
-	glVertex3f(5.0, 1.0, 5.0);
-	glutWireTeapot(0.5);
-	glEnd();
+	// Draw Perimieter
+	drawPerimeter(maze.getWidth(), maze.getHeight());
 
 	// location text
 	_hud.drawHud(cam, width, height);
@@ -37,7 +35,46 @@ void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
     glutSwapBuffers(); //swap the buffers
 }
 
-// Temp grid
+void Canvas::drawPerimeter(int w, int h)
+{
+	for (int i = 0; i < w; i++)
+	{
+		glColor3f(0, 1, 0);
+		glPushMatrix();
+		glTranslatef(-1, 1, i);
+		glutSolidCube(1);
+		glPopMatrix();
+	}
+
+	for (int i = 0; i < w; i++)
+	{
+		glColor3f(0, 1, 0);
+		glPushMatrix();
+		glTranslatef(h, 1, i);
+		glutSolidCube(1);
+		glPopMatrix();
+	}
+
+	for (int i = 0; i < h; i++)
+	{
+		glColor3f(0, 1, 0);
+		glPushMatrix();
+		glTranslatef(i, 1, -1);
+		glutSolidCube(1);
+		glPopMatrix();
+	}
+
+	for (int i = 0; i < h; i++)
+	{
+		glColor3f(0, 1, 0);
+		glPushMatrix();
+		glTranslatef(i, 1, w);
+		glutSolidCube(1);
+		glPopMatrix();
+	}
+}
+
+// grid and floor
 void Canvas::drawGrid(Maze &maze)
 {
     glPushMatrix();
@@ -54,20 +91,6 @@ void Canvas::drawGrid(Maze &maze)
 		}
 	}
 
-	//for(int i=0; i <= maze.getWidth(); i++) {
- //       glBegin(GL_LINES);
- //       glVertex3f(i, 0, 0);
- //       glVertex3f(i, 0, maze.getHeight());
- //       glEnd();
- //   }
-
-	//for(int i=0; i <= maze.getHeight(); i++) {
- //       glBegin(GL_LINES);
- //       glVertex3f(0, 0, i);
- //       glVertex3f(maze.getWidth(), 0, i);
- //       glEnd();
- //   }
-
     glPopMatrix();
 }
 
@@ -80,7 +103,7 @@ void Canvas::drawCube(int x, int z, int h)
 			glColor3f(1, 1, 0);
 			glPushMatrix();
 			glTranslatef(x, i, z);
-			glutWireCube(1);
+			glutSolidCube(1);
 			glPopMatrix();
 		}
 	} 
@@ -92,31 +115,6 @@ void Canvas::drawCube(int x, int z, int h)
 		glutSolidCube(1);
 		glPopMatrix();
 	}
-
-
-
-	//if (h > 0)
-	//{
-	//	glBegin(GL_LINES);
-	//	glVertex3f(x, h, z);
-	//	glVertex3f(x, h - 1, z);
-	//	glEnd();
-
-	//	glBegin(GL_LINES);
-	//	glVertex3f(x + 1, h, z);
-	//	glVertex3f(x + 1, h - 1, z);
-	//	glEnd();
-
-	//	glBegin(GL_LINES);
-	//	glVertex3f(x + 1, h, z + 1);
-	//	glVertex3f(x + 1, h - 1, z + 1);
-	//	glEnd();
-
-	//	glBegin(GL_LINES);
-	//	glVertex3f(x, h, z + 1);
-	//	glVertex3f(x, h - 1, z + 1);
-	//	glEnd();
-	//}
 }
 
 void Canvas::drawSquare(int x, int z, int h)

@@ -19,7 +19,7 @@ void Camera::Init()
 	m_yaw = 0.0;
 	m_pitch = 0.0;
 
-	SetPos(10, 1, 10);
+	SetPos(0, 1, 0);
 }
 
 // Refresh camera position

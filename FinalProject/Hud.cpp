@@ -60,9 +60,13 @@ void Hud::restorePerspectiveProjection()
 void Hud::renderBitmapString(float x, float y, void *font, const char *string) 
 {
 	const char *c;
+
 	glRasterPos2f(x, y);
-	for (c = string; *c != '\0'; c++) 
+	
+	for (c = string; *c != '\0'; c++)
+	{
 		glutBitmapCharacter(font, *c);
+	}
 }
 
 // draw location relative to 2D plane
@@ -91,11 +95,22 @@ void Hud::drawCrosshair(float x, float y, int size)
 
 void Hud::drawLookAt(float x, float y, float z)
 {
+	switch (getDirection(x * 100, z * 100))
+	{
+	case Camera::Direction.NORTH:
+		break;
+	}
+
 	char loc[50];
-	sprintf(loc, "%4.2f, %4.2f, %4.2f", x, y, z);
-	glColor3f(0.0f,1.0f,1.0f);
+	sprintf(loc, "%4.0f %4.0f %4.0f", x*100, y*100, z*100);
+
+	glColor3f(0.0f, 1.0f, 1.0f);
 	renderBitmapString(10.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
 
-
 	//if ((x > 0.45 && x <= 1) && (z >= 0 && z <= 0.89))
+}
+
+Camera::Direction Hud::getDirection(float x, float z)
+{
+
 }

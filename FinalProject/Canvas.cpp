@@ -15,7 +15,7 @@ Canvas::~Canvas(void)
 
 void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0); //clear the screen to black
+    glClearColor(0.196, 0.6, 0.8, 1.0); // Background: sky blue
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
     glLoadIdentity();
 

@@ -35,8 +35,8 @@ bool Maze::isValidMove(float x, float y)
 		return false;
 
 	// Check maze array
-	x -= 0.25;
-	y -= 0.25;
+	//x -= 0.25;
+	//y -= 0.25;
 	int check_x = int(x + 0.5);
 	int check_y = int(y + 0.5);
 

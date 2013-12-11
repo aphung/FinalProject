@@ -78,7 +78,7 @@ int main (int argc, char **argv)
 	glEnable(GL_DEPTH_TEST);
 
 	// New Maze
-	_maze.newMaze(25, 25);
+	_maze.newMaze(31, 31);
 
 	// enter GLUT event processing cycle
 	glutTimerFunc(1, timer, 0);

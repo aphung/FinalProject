@@ -16,5 +16,6 @@ private:
 	void drawLocation(float x, float y, float z);
 	void drawCrosshair(float x, float y, int size);
 	void drawLookAt(float x, float y, float z);
+	Camera::Direction getDirection(float x, float z);
 };
 

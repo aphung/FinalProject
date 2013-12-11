@@ -27,6 +27,9 @@ public:
 	void RotateYaw(float angle);
 	void RotatePitch(float angle);
 
+	// Direction
+	enum Direction { NORTH, NORTHWEST, NORTHEAST, SOUTH, SOUTHWEST, SOUTHEAST, EAST, WEST };
+
 private:
 	float m_x, m_y, m_z; // Position
 	float temp_x, temp_y, temp_z; // Temp position for collision detection

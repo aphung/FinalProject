@@ -13,6 +13,8 @@ private:
 	MazePoint _startPoint;
 	MazePoint _current;
 	int _width, _height;
+	int **_maze;
+	bool **_visited;
 	
 	MazePoint MazeGenerator::choosePath(MazePoint point);
 	void MazeGenerator::carvePath(MazePoint from, MazePoint to);

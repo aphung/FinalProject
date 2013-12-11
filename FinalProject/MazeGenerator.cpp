@@ -2,10 +2,17 @@
 #include "MazeGenerator.h"
 #include "MazePointStack.h"
 
-
-int **_maze;
-bool **_visited;
 MazePointStack stack;
+
+MazeGenerator::MazeGenerator(void)
+{
+
+}
+
+MazeGenerator::~MazeGenerator(void)
+{
+
+}
 
 void MazeGenerator::generateNewMaze(int width, int height)
 {

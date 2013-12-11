@@ -5,9 +5,10 @@ MazePointStack::MazePointStack()
 {
 	top = 0;
 	max = 5;
-	p = new MazePoint[max];
+	stack = new MazePoint[max];
 }
 
+MazePointStack::~MazePointStack() { }
 
 void MazePointStack::push(MazePoint point)
 {
@@ -24,6 +25,11 @@ MazePoint MazePointStack::pop()
 		return none;
 	}
 	return stack[--top];
+}
+
+bool MazePointStack::isEmpty()
+{
+	return top == 0;
 }
 
 void MazePointStack::expandStack()

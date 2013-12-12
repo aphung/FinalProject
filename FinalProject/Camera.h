@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Maze.h"
+#include "Direction.h"
 
 class Camera
 {
@@ -27,9 +28,6 @@ public:
 	void RotateYaw(float angle);
 	void RotatePitch(float angle);
 
-	// Direction
-	enum Direction { NORTH, NORTHWEST, NORTHEAST, SOUTH, SOUTHWEST, SOUTHEAST, EAST, WEST };
-
 private:
 	float m_x, m_y, m_z; // Position
 	float temp_x, temp_y, temp_z; // Temp position for collision detection
@@ -38,5 +36,6 @@ private:
 	float m_strafe_lx, m_strafe_lz; // Always 90 deg to direction vector
 
 	bool isValidMove();
+	Direction getDirection();
 };
 

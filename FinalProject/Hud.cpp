@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <iostream>
 #include <math.h>
 #include <glut.h>
 #include <string.h>
 
 #include "Hud.h"
 
-//using namespace std;
+using namespace std;
 
 Hud::Hud(void)
 {
@@ -95,9 +96,32 @@ void Hud::drawCrosshair(float x, float y, int size)
 
 void Hud::drawLookAt(float x, float y, float z)
 {
+	char dir[5];
 	switch (getDirection(x * 100, z * 100))
 	{
-	case Camera::Direction.NORTH:
+	case Direction::NORTH:
+		sprintf(dir, "N");
+		break;
+	case Direction::NORTHEAST:
+		sprintf(dir, "NE");
+		break;
+	case Direction::EAST:
+		sprintf(dir, "E");
+		break;
+	case Direction::SOUTHEAST:
+		sprintf(dir, "SE");
+		break;
+	case Direction::SOUTH:
+		sprintf(dir, "S");
+		break;
+	case Direction::SOUTHWEST:
+		sprintf(dir, "SW");
+		break;
+	case Direction::WEST:
+		sprintf(dir, "W");
+		break;
+	case Direction::NORTHWEST:
+		sprintf(dir, "NW");
 		break;
 	}
 
@@ -106,11 +130,42 @@ void Hud::drawLookAt(float x, float y, float z)
 
 	glColor3f(0.0f, 1.0f, 1.0f);
 	renderBitmapString(10.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
-
-	//if ((x > 0.45 && x <= 1) && (z >= 0 && z <= 0.89))
+	renderBitmapString(200.0, 35.0, GLUT_BITMAP_HELVETICA_18, dir);
 }
 
-Camera::Direction Hud::getDirection(float x, float z)
+Direction Hud::getDirection(float x, float z)
 {
+	Direction facing = Direction::NORTH;
 
+	if (x > -35)
+	{
+		if (x < 35) // W or E
+		{
+			if (z > 0) // E
+				facing = Direction::EAST;
+			else // W
+				facing = Direction::WEST;
+		}
+		else // NW, N or NE
+		{
+			if (x >= 85) // N
+				facing = Direction::NORTH;
+			else if (z < 0) // NW
+				facing = Direction::NORTHWEST;
+			else // NE
+				facing = Direction::NORTHEAST;
+
+		}
+	}
+	else // x <= -35 SW, S or SE
+	{
+		if (x <= -85) // S
+			facing = Direction::SOUTH;
+		else if (z < 0) // SW
+			facing = Direction::SOUTHWEST;
+		else // SE
+			facing = Direction::SOUTHEAST;
+	}
+
+	return facing;
 }

@@ -109,11 +109,11 @@ MazePoint MazeGenerator::choosePath(MazePoint point)
 	if (point.getX() + 2 < _width && _visited[point.getX() + 2][point.getY()] == false)
 		validPoint[counter++].setPoint(point.getX() + 2, point.getY());
 
-	// North
+	// South
 	if (point.getY() - 2 >= 0 && _visited[point.getX()][point.getY() - 2] == false)
 		validPoint[counter++].setPoint(point.getX(), point.getY() - 2);
 
-	// South
+	// North
 	if (point.getY() + 2 < _height && _visited[point.getX()][point.getY() + 2] == false)
 		validPoint[counter++].setPoint(point.getX(), point.getY() + 2);
 

@@ -84,7 +84,7 @@ void Camera::Move(float increment, Maze &maze)
 	m_z = m_z + increment * lz;
 
 	// Collision detection
-	if (!maze.isValidMove(m_x, m_z))
+	if (!maze.isValidMove(m_x, m_z, getDirection()))
 	{
 		m_x = temp_x;
 		m_z = temp_z;
@@ -104,7 +104,7 @@ void Camera::Strafe(float increment, Maze &maze)
 	m_z = m_z + increment * m_strafe_lz;
 
 	// Collision detection
-	if (!maze.isValidMove(m_x, m_z))
+	if (!maze.isValidMove(m_x, m_z, getDirection()))
 	{
 		m_x = temp_x; // not valid return old values
 		m_z = temp_z;
@@ -154,4 +154,41 @@ void Camera::SetPitch(float angle)
 	m_pitch = angle;
 
 	Refresh();
+}
+
+Direction Camera::getDirection()
+{
+	Direction facing = Direction::NORTH;
+
+	if (m_lx > -35)
+	{
+		if (m_lx < 35) // W or E
+		{
+			if (m_lz > 0) // E
+				facing = Direction::EAST;
+			else // W
+				facing = Direction::WEST;
+		}
+		else // NW, N or NE
+		{
+			if (m_lx >= 85) // N
+				facing = Direction::NORTH;
+			else if (m_lz < 0) // NW
+				facing = Direction::NORTHWEST;
+			else // NE
+				facing = Direction::NORTHEAST;
+
+		}
+	}
+	else // m_lx <= -35 SW, S or SE
+	{
+		if (m_lx <= -85) // S
+			facing = Direction::SOUTH;
+		else if (m_lz < 0) // SW
+			facing = Direction::SOUTHWEST;
+		else // SE
+			facing = Direction::SOUTHEAST;
+	}
+
+	return facing;
 }

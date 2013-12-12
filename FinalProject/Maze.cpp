@@ -25,7 +25,7 @@ void Maze::newMaze(int width, int height)
 	_sizeHeight = height;
 }
 
-bool Maze::isValidMove(float x, float y)
+bool Maze::isValidMove(float x, float y, Direction face)
 {
 	// Check boundries
 	if (x < -0.25 || x > _sizeWidth - 0.75)

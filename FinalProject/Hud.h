@@ -1,5 +1,6 @@
 #pragma once
 #include "Camera.h"
+#include "Direction.h"
 
 class Hud
 {
@@ -8,6 +9,7 @@ public:
 	~Hud(void);
 
 	void drawHud(Camera &cam, int width, int height);
+	Direction getDirection(float x, float z);
 
 private:
 	void setOrthographicProjection(int width, int height);
@@ -16,6 +18,5 @@ private:
 	void drawLocation(float x, float y, float z);
 	void drawCrosshair(float x, float y, int size);
 	void drawLookAt(float x, float y, float z);
-	Camera::Direction getDirection(float x, float z);
 };
 

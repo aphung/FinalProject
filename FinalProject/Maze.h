@@ -1,5 +1,6 @@
 #pragma once
 #include "MazeGenerator.h"
+#include "Direction.h"
 
 class Maze
 {
@@ -8,7 +9,7 @@ public:
 	~Maze(void);
 
 	void newMaze(int width, int height); // Create new maze (input size?)
-	bool isValidMove(float x, float y); // Collision detection
+	bool isValidMove(float x, float y, Direction face); // Collision detection
 
 	int getWidth();
 	int getHeight();

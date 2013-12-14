@@ -35,14 +35,8 @@ bool Maze::isValidMove(float x, float y, Direction face)
 		return false;
 
 	// Check maze array
-	//x -= 0.25;
-	//y -= 0.25;
 	int check_x = int(x + 0.5);
 	int check_y = int(y + 0.5);
-
-	//// Check upper bound
-	//if (check_x >= _sizeWidth || check_y >= _sizeHeight)
-	//	return false;
 
 	if (_maze[check_x][check_y] > 0)
 		return false;

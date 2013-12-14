@@ -19,7 +19,7 @@ void Camera::Init()
 	m_yaw = 0.0;
 	m_pitch = 0.0;
 
-	SetPos(0, 1, 0);
+	SetPos(0, 1.25, 0);
 }
 
 // Refresh camera position
@@ -105,6 +105,9 @@ void Camera::Move(float increment, Maze &maze)
 		m_z = temp_z;
 	}
 
+	// Mark movement
+	maze.markMovement(m_x, m_z);
+
 	Refresh();
 }
 
@@ -138,6 +141,9 @@ void Camera::Strafe(float increment, Maze &maze)
 		m_x = temp_x; // not valid return old values
 		m_z = temp_z;
 	}
+
+	// Mark movement
+	maze.markMovement(m_x, m_z);
 
 	Refresh();
 }

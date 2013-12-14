@@ -4,11 +4,16 @@
 #include "Maze.h"
 
 int** _maze;
+bool inSquare = false;
+int c_x, c_z;
 
 Maze::Maze(void)
 {
 	_sizeWidth = 100; // Default size
 	_sizeHeight = 100;
+
+	c_x = -1;
+	c_z = -1;
 }
 
 
@@ -23,6 +28,18 @@ void Maze::newMaze(int width, int height)
 
 	_sizeWidth = width;
 	_sizeHeight = height;
+
+	// Set visited
+	_visited = new int*[width];
+
+	for (int i = 0; i < width; ++i)
+		_visited[i] = new int[height];
+
+	for (int i = 0; i < width; i++)
+		for(int j = 0; j < height; j++)
+			_visited[i][j] = 0;
+
+	//_visited[0][0] = 1; // Starting position
 }
 
 bool Maze::isValidMove(float x, float y, Direction face)
@@ -45,6 +62,28 @@ bool Maze::isValidMove(float x, float y, Direction face)
 	return true;
 }
 
+void Maze::markMovement(float x, float z)
+{
+	int m_x = int(x + 0.5);
+	int m_z = int(z + 0.5);
+
+	_visited[m_x][m_z] = 1;
+
+	//if (c_x != m_x && c_z != m_z)
+	//	inSquare = false;
+
+	//if (!inSquare)
+	//{
+	//	setVisitedAt(m_x, m_z, 1);
+	//	inSquare = true;
+	//	c_x = m_x; 
+	//	c_z = m_z;
+	//}
+
+}
+
 int Maze::getWidth() { return _sizeWidth; }
 int Maze::getHeight() { return _sizeHeight; }
 int **Maze::getMaze() { return _maze; }
+void Maze::setVisitedAt(int x, int z, int increment) { _visited[x][z] += increment; }
+int Maze::getVisitedAt(int x, int z) { return _visited[x][z]; };

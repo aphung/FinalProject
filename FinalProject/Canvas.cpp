@@ -87,14 +87,14 @@ void Canvas::drawGrid(Maze &maze)
 		for(int j = 0; j < maze.getHeight(); j++)
 		{
 			for(int h = 0; h <= grid[i][j]; h++)
-				drawCube(i, j, grid[i][j]);
+				drawCube(i, j, grid[i][j], maze.getVisitedAt(i, j));
 		}
 	}
 
     glPopMatrix();
 }
 
-void Canvas::drawCube(int x, int z, int h)
+void Canvas::drawCube(int x, int z, int h, int freq)
 {
 	if (h > 0)
 	{
@@ -109,7 +109,21 @@ void Canvas::drawCube(int x, int z, int h)
 	} 
 	else
 	{
-		glColor3f(0.0, 0.0, 1.0);
+		switch(freq)
+		{
+		case 0:
+			glColor3f(0.0, 0.0, 1.0);
+			break;
+		case 1:
+			glColor3f(0.0, 0.5, 1.0);
+			break;
+		case 2:
+			glColor3f(0.0, 0.75, 1.0);
+			break;
+		default:
+			glColor3f(0.0, 1.0, 1.0);
+			break;
+		}
 		glPushMatrix();
 		glTranslatef(x, h, z);
 		glutSolidCube(1.0);

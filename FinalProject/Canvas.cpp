@@ -103,7 +103,7 @@ void Canvas::drawCube(int x, int z, int h)
 			glColor3f(1, 1, 0);
 			glPushMatrix();
 			glTranslatef(x, i, z);
-			glutSolidCube(0.5);
+			glutSolidCube(1.0);
 			glPopMatrix();
 		}
 	} 

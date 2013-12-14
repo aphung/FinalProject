@@ -83,8 +83,23 @@ void Camera::Move(float increment, Maze &maze)
 	//m_y = m_y + increment * ly; // Disable flying off the y axis
 	m_z = m_z + increment * lz;
 
+	// Determine collision buffer
+	float buffer_x, buffer_z;
+
+	if (increment > 0)
+	{
+		buffer_x = m_x + (increment + 0.25) * lx;
+		buffer_z = m_z + (increment + 0.25) * lz;
+	}
+	else 
+	{
+		buffer_x = m_x + (increment - 0.25) * lx;
+		buffer_z = m_z + (increment - 0.25) * lz;
+	}
+
+
 	// Collision detection
-	if (!maze.isValidMove(m_x, m_z, getDirection()))
+	if (!maze.isValidMove(buffer_x, buffer_z, getDirection()))
 	{
 		m_x = temp_x;
 		m_z = temp_z;
@@ -103,8 +118,22 @@ void Camera::Strafe(float increment, Maze &maze)
 	m_x = m_x + increment * m_strafe_lx;
 	m_z = m_z + increment * m_strafe_lz;
 
+	// Determine collision buffer
+	float buffer_x, buffer_z;
+
+	if (increment > 0)
+	{
+		buffer_x = m_x + (increment + 0.15) * m_strafe_lx;
+		buffer_z = m_z + (increment + 0.15) * m_strafe_lz;
+	}
+	else 
+	{
+		buffer_x = m_x + (increment - 0.15) * m_strafe_lx;
+		buffer_z = m_z + (increment - 0.15) * m_strafe_lz;
+	}
+
 	// Collision detection
-	if (!maze.isValidMove(m_x, m_z, getDirection()))
+	if (!maze.isValidMove(buffer_x, buffer_z, getDirection()))
 	{
 		m_x = temp_x; // not valid return old values
 		m_z = temp_z;

@@ -26,7 +26,6 @@ void Camera::Init()
 void Camera::Refresh()
 {
 	// Sets the camera parameter according to Riegl's coordinate system
-	// x/y for flat, z for height
 	m_lx = cos(m_yaw) * cos(m_pitch);
 	m_ly = sin(m_pitch);
 	m_lz = sin(m_yaw) * cos(m_pitch);

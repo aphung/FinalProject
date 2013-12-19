@@ -76,7 +76,7 @@ void Camera::Move(float increment, Maze &maze)
 	float lz = sin(m_yaw) * cos(m_pitch);
 
 	m_x = m_x + increment * lx;
-	//m_y = m_y + increment * ly; // Disable flying off the y axis
+	//m_y = m_y + increment * ly; // Disable moving along the y axis
 	m_z = m_z + increment * lz;
 
 	// Determine collision buffer

@@ -21,6 +21,8 @@ void Hud::drawHud(Camera &cam, int width, int height)
 {
 	float x, z, y;
 
+	w = width; h = height;
+
 	glPushMatrix();
 	glLoadIdentity();
 	setOrthographicProjection(width, height);
@@ -28,6 +30,8 @@ void Hud::drawHud(Camera &cam, int width, int height)
 	drawCrosshair(width/2, height/2, 10);
 
 	cam.GetPos(x, y, z);
+
+	// Draw coords on screen
 	drawLocation(x, y, z);
 
 	cam.GetDirectionVector(x, y, z);
@@ -76,7 +80,7 @@ void Hud::drawLocation(float x, float y, float z)
 	char loc[50];
 	sprintf(loc, "%4.2f, %4.2f, %4.2f", x, y, z);
 	glColor3f(0.0f,1.0f,1.0f);
-	renderBitmapString(450.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
+	renderBitmapString(w-150.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
 }
 
 void Hud::drawCrosshair(float x, float y, int size)
@@ -130,7 +134,7 @@ void Hud::drawLookAt(float x, float y, float z)
 
 	glColor3f(0.0f, 1.0f, 1.0f);
 	renderBitmapString(10.0, 35.0, GLUT_BITMAP_HELVETICA_18, loc);
-	renderBitmapString(200.0, 35.0, GLUT_BITMAP_HELVETICA_18, dir);
+	renderBitmapString((w/2.0)-2, 35.0, GLUT_BITMAP_HELVETICA_18, dir);
 }
 
 Direction Hud::getDirection(float x, float z)

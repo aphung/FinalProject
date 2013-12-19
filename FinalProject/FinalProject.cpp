@@ -10,10 +10,10 @@
 
 #define PI 3.14159265358979323846
 
-const int WINDOW_WIDTH = 640;
-const int WINDOW_HEIGHT = 480;
-const int WIN_LOC_X = 600;
-const int WIN_LOC_Y = 300;
+const int WINDOW_WIDTH = 1024;
+const int WINDOW_HEIGHT = 768;
+const int WIN_LOC_X = 300;
+const int WIN_LOC_Y = 150;
 
 using namespace std;
 
@@ -105,6 +105,15 @@ void display(void)
 
 void timer(int value)
 {
+	float x, y, z;
+	_camera.GetPos(x, y, z);
+
+	// Check if finished
+	if (_maze.isEndPoint(x, z))
+	{
+
+	}
+
 	_controller.timerMove(value, _camera, _maze);
     glutTimerFunc(1, timer, 0);
 }

@@ -9,8 +9,8 @@ int c_x, c_z;
 
 Maze::Maze(void)
 {
-	_sizeWidth = 100; // Default size
-	_sizeHeight = 100;
+	_sizeWidth = 50; // Default size
+	_sizeHeight = 50;
 
 	c_x = -1;
 	c_z = -1;
@@ -29,6 +29,10 @@ void Maze::newMaze(int width, int height)
 	_sizeWidth = width;
 	_sizeHeight = height;
 
+	// Set starting and end points
+	start.setPoint(0, 0);
+	end.setPoint(_sizeWidth, _sizeHeight);
+
 	// Set visited
 	_visited = new int*[width];
 
@@ -38,8 +42,6 @@ void Maze::newMaze(int width, int height)
 	for (int i = 0; i < width; i++)
 		for(int j = 0; j < height; j++)
 			_visited[i][j] = 0;
-
-	//_visited[0][0] = 1; // Starting position
 }
 
 bool Maze::isValidMove(float x, float y, Direction face)
@@ -80,6 +82,22 @@ void Maze::markMovement(float x, float z)
 	//	c_z = m_z;
 	//}
 
+}
+
+bool Maze::isStartPoint(float x, float z)
+{
+	int m_x = int(x + 0.5);
+	int m_z = int(z + 0.5);
+
+	return (start.getX() == m_x && start.getY() == m_z);
+}
+
+bool Maze::isEndPoint(float x, float z)
+{
+	int m_x = int(x + 0.5);
+	int m_z = int(z + 0.5);
+
+	return (end.getX() == m_x && end.getY() == m_z);
 }
 
 int Maze::getWidth() { return _sizeWidth; }

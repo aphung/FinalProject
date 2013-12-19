@@ -19,10 +19,14 @@ public:
 	int getVisitedAt(int x, int z);
 	void markMovement(float x, float z);
 
+	bool isStartPoint(float x, float z);
+	bool isEndPoint(float x, float z);
+
 private:
 	int _sizeWidth, _sizeHeight;
 	int** _visited;
 	MazeGenerator _mazeGen;
+	MazePoint start, end;
 
 	bool isWithinBoundry(float x, float y);
 };

@@ -29,6 +29,8 @@ void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
 	// Draw Perimieter
 	drawPerimeter(maze.getWidth(), maze.getHeight());
 
+	// Draw start and end points
+
 	// location text
 	_hud.drawHud(cam, width, height);
 
@@ -37,38 +39,31 @@ void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
 
 void Canvas::drawPerimeter(int w, int h)
 {
-	for (int i = 0; i < w; i++)
-	{
-		glColor3f(0, 1, 0);
-		glPushMatrix();
-		glTranslatef(-1, 1, i);
-		glutSolidCube(1);
-		glPopMatrix();
-	}
+	drawSolidCubeLine(-1, -1, -1, h, 1);
+	drawSolidCubeLine(-1, -1, w, -1, 1);
+	drawSolidCubeLine(-1, h, w, h, 1);
+	drawSolidCubeLine(w, -1, w, h, 1);
+}
 
-	for (int i = 0; i < w; i++)
-	{
-		glColor3f(0, 1, 0);
-		glPushMatrix();
-		glTranslatef(h, 1, i);
-		glutSolidCube(1);
-		glPopMatrix();
-	}
+// draw line cubes from f to t
+void Canvas::drawSolidCubeLine(int f_x, int f_z, int t_x, int t_z, int h)
+{
+	int incr;
+	if (f_x == t_x)
+		incr = t_z;
+	else
+		incr = t_x;
 
-	for (int i = 0; i < h; i++)
+	for (int i = -1; i <= incr; i++)
 	{
 		glColor3f(0, 1, 0);
 		glPushMatrix();
-		glTranslatef(i, 1, -1);
-		glutSolidCube(1);
-		glPopMatrix();
-	}
 
-	for (int i = 0; i < h; i++)
-	{
-		glColor3f(0, 1, 0);
-		glPushMatrix();
-		glTranslatef(i, 1, w);
+		if (f_x == t_x)
+			glTranslatef(f_x, h, i);
+		else
+			glTranslatef(i, h, f_z);
+		
 		glutSolidCube(1);
 		glPopMatrix();
 	}
@@ -129,31 +124,4 @@ void Canvas::drawCube(int x, int z, int h, int freq)
 		glutSolidCube(1.0);
 		glPopMatrix();
 	}
-}
-
-void Canvas::drawSquare(int x, int z, int h)
-{
-	// Left
-	glBegin(GL_LINES);
-	glVertex3f(x, h, z);
-	glVertex3f(x + 1, h, z);
-	glEnd();
-
-	// Top
-	glBegin(GL_LINES);
-	glVertex3f(x + 1, h, z);
-	glVertex3f(x + 1, h, z + 1);
-	glEnd();
-
-	// Right
-	glBegin(GL_LINES);
-	glVertex3f(x + 1, h, z + 1);
-	glVertex3f(x, h, z + 1);
-	glEnd();
-
-	// Bottom
-	glBegin(GL_LINES);
-	glVertex3f(x, h, z + 1);
-	glVertex3f(x, h, z);
-	glEnd();
 }

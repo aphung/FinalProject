@@ -1,4 +1,5 @@
 #pragma once
+#include <string.h>
 #include "Camera.h"
 #include "Maze.h"
 #include "Hud.h"
@@ -15,6 +16,8 @@ private:
 	void drawPerimeter(int width, int height);
 	void drawCube(int x, int z, int h, int frequency);
 	void drawSolidCubeLine(int f_x, int f_z, int t_x, int t_z, int h);
+	void drawMarker(int x, int z, int h, float r, float g, float b, char text[]);
+
 	Hud _hud;
 };
 

@@ -30,6 +30,9 @@ void Canvas::draw(Camera &cam, Maze &maze, int width, int height)
 	drawPerimeter(maze.getWidth(), maze.getHeight());
 
 	// Draw start and end points
+	char str[] = "Start";
+	drawMarker(-1, -1, 10, 23.0/255.0f, 1.0f, 100.0/255.0f, str);
+	drawMarker(maze.getWidth(), maze.getHeight(), 10, 235.0/255.0f, 40.0/255.0f, 92.0/255.0f, str);
 
 	// location text
 	_hud.drawHud(cam, width, height);
@@ -121,6 +124,19 @@ void Canvas::drawCube(int x, int z, int h, int freq)
 		}
 		glPushMatrix();
 		glTranslatef(x, h, z);
+		glutSolidCube(1.0);
+		glPopMatrix();
+	}
+}
+
+void Canvas::drawMarker(int x, int z, int h, float r, float g, float b, char text[])
+{
+
+	for (int i = 2; i < h+2; i++)
+	{
+		glColor3f(r, g, b);
+		glPushMatrix();
+		glTranslatef(x, i, z);
 		glutSolidCube(1.0);
 		glPopMatrix();
 	}

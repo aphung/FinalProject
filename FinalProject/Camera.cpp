@@ -22,7 +22,7 @@ void Camera::Init()
 	SetPos(0, 1.25, 0);
 }
 
-// Refresh camera position
+// Calculates the look at and sets it
 void Camera::Refresh()
 {
 	// Sets the camera parameter according to Riegl's coordinate system
@@ -38,9 +38,6 @@ void Camera::Refresh()
 	gluLookAt(	m_x, m_y, m_z,
 				m_x + m_lx, m_y + m_ly, m_z + m_lz,
 				0.0, 1.0, 0.0);
-
-	//printf("Camera: %f %f %f Direction vector: %f %f %f\n", m_x, m_y, m_z, m_lx, m_ly, m_lz);
-	//printf("Camera: %f %f %f DirectionV: %f %f %f Strafe: %f %f\n", m_x, m_y, m_z, m_lx, m_ly, m_lz, m_strafe_lx, m_strafe_lz);
 }
 
 void Camera::SetPos(float x, float y, float z)

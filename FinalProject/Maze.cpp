@@ -70,18 +70,6 @@ void Maze::markMovement(float x, float z)
 	int m_z = int(z + 0.5);
 
 	_visited[m_x][m_z] = 1;
-
-	//if (c_x != m_x && c_z != m_z)
-	//	inSquare = false;
-
-	//if (!inSquare)
-	//{
-	//	setVisitedAt(m_x, m_z, 1);
-	//	inSquare = true;
-	//	c_x = m_x; 
-	//	c_z = m_z;
-	//}
-
 }
 
 bool Maze::isStartPoint(float x, float z)
